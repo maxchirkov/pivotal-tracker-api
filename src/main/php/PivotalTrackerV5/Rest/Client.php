@@ -25,7 +25,7 @@ namespace PivotalTrackerV5\Rest;
  * The ctor of this class expects the remote REST server as argument. This
  * includes host/ip, port and protocol.
  */
-class Client
+class Client implements RestClientInterface
 {
     /**
      * Wrapped HTTP request methods.
@@ -39,14 +39,14 @@ class Client
      *
      * @var string[]
      */
-    private $header = array();
+    protected $header = array();
 
     /**
      * The remote REST server location.
      *
      * @var string
      */
-    private $server;
+    protected $server;
 
     /**
      * Constructs a new REST client instance for the given <b>$server</b>.

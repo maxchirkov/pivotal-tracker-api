@@ -9,6 +9,10 @@
 
 namespace PivotalTrackerV5;
 
+
+use PivotalTrackerV5\Rest\RestClientInterface;
+
+
 /**
  * Simple Pivotal Tracker api client.
  *
@@ -35,20 +39,23 @@ class Client
      * @var \PivotalTracker\Rest\Client
      */
     private $client;
+
+
     /**
-     * 
-     * @param string $apiKey  API Token provided by PivotalTracking
-     * @param string $project Project ID
+     *
+     * @param string              $apiKey  API Token provided by PivotalTracking
+     * @param string              $project Project ID
+     * @param RestClientInterface $restClient
      */
-    public function __construct( $apiKey, $project )
+    public function __construct( $apiKey, $project, RestClientInterface $restClient )
     {
-        $this->client = new Rest\Client( self::API_URL );
+        $this->client = $restClient;
         $this->client->addHeader( 'Content-type', 'application/json' );
         $this->client->addHeader( 'X-TrackerToken',  $apiKey );
         $this->project = $project;
     }
 
- 
+
     /**
      * Adds a new story to PivotalTracker and returns the newly created story
      * object.
@@ -79,11 +86,23 @@ class Client
      */
     public function addTask( $storyId, $description )
     {
-        return simplexml_load_string(
+        return json_decode(
             $this->client->post(
                 "/projects/{$this->project}/stories/$storyId/tasks",
                 json_encode( array( 'description' => $description ) )
                 
+            )
+        );
+    }
+
+
+    public function addComment( $storyId, $text )
+    {
+        return json_decode(
+            $this->client->post(
+                "/projects/{$this->project}/stories/$storyId/comments",
+                json_encode( array( 'text' => $text ) )
+
             )
         );
     }
@@ -101,10 +120,24 @@ class Client
         return json_decode(
             $this->client->put(
                 "/projects/{$this->project}/stories/$storyId",
-                json_encode(  $labels )
+                json_encode(  array('labels' => $labels) )
             )
         );
+
     }
+
+
+    public function addLabel( $storyId, array $label )
+    {
+        return json_decode(
+            $this->client->post(
+                "/projects/{$this->project}/stories/$storyId/labels",
+                json_encode( $label)
+            )
+        );
+
+    }
+
 
     /**
      * Returns all stories for the context project.
@@ -137,5 +170,21 @@ class Client
 
     }
 
-     
+
+    /**
+     * Returns project by ID.
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function getProject($id)
+    {
+        return json_decode(
+            $this->client->get(
+                "/projects/{$id}"
+            )
+        );
+
+    }
 }
