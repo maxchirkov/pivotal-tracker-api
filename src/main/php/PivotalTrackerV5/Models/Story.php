@@ -11,7 +11,6 @@ namespace PivotalTrackerV5\Models;
 class Story extends Model
 {
     public static $required = [
-        'project_id',
         'name'
     ];
 

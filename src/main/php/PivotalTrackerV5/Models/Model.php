@@ -134,7 +134,7 @@ class Model
     {
         if (!empty($this->invalidProperties))
         {
-            return 'One or more properties are invalid: ' . implode(', ', $this->invalidProperties) . '.';
+            return 'Story object is invalid. One or more properties are invalid: ' . implode(', ', $this->invalidProperties) . '.';
         }
 
         return;
