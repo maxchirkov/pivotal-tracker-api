@@ -6,6 +6,8 @@ class Model
 {
     public static $required = [];
 
+    protected $invalidProperties;
+
 
     public function __construct($parameters = null)
     {
@@ -111,17 +113,30 @@ class Model
      */
     public function isValid()
     {
+        $this->invalidProperties = [];
+
         if (!empty(static::$required))
         {
             foreach (static::$required as $property)
             {
                 if (!isset($this->$property))
                 {
-                    return false;
+                    $this->invalidProperties[] = $property;
                 }
             }
         }
 
-        return true;
+        return (!empty($this->invalidProperties)) ? false : true;
+    }
+
+
+    public function getValidationMessage()
+    {
+        if (!empty($this->invalidProperties))
+        {
+            return 'One or more properties are invalid: ' . implode(', ', $this->invalidProperties) . '.';
+        }
+
+        return;
     }
 }
