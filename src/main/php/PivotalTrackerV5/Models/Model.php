@@ -73,6 +73,9 @@ class Model
             $property   = $prop->getName();
             $value      = $this->$property;
 
+            if ($property == 'invalidProperties')
+                continue;
+
             if ($value === null)
                 continue;
 
