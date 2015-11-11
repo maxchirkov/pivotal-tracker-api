@@ -26,12 +26,9 @@ class Task extends Model
         }
         else if (is_array($parameters))
         {
-            foreach ($parameters as $parameter => $value)
+            foreach ($parameters as $property => $value)
             {
-                if (property_exists($this, $parameter))
-                {
-                    $this->$parameter = $value;
-                }
+                $this->set($property, $value);
             }
         }
     }

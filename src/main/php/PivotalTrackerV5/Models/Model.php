@@ -7,12 +7,55 @@ class Model
     public static $required = [];
 
 
+    public function __construct($parameters = null)
+    {
+        if (is_array($parameters))
+        {
+            foreach ($parameters as $property => $value)
+            {
+                $this->set($property, $value);
+            }
+        }
+    }
+
+
     function __get($property)
     {
         if (property_exists($this, $property))
         {
             return $this->$property;
         }
+    }
+
+
+    public function set($property, $value)
+    {
+        if (property_exists($this, $property))
+        {
+            if ($setterMethod = $this->getSetter($property))
+            {
+                call_user_func(array($this, $setterMethod), $value);
+            }
+            else
+            {
+                $this->$property = $value;
+            }
+        }
+
+    }
+
+
+    protected function getSetter($property)
+    {
+        $parts = explode('_', $property);
+        $methodName = 'set' . implode('', array_map('ucfirst', $parts));
+
+        if (method_exists($this, $methodName))
+        {
+            return $methodName;
+        }
+
+        return false;
     }
 
 

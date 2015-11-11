@@ -112,4 +112,23 @@ class StoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('One more task', $story->tasks[2]->description);
         $this->assertEquals(1, $story->tasks[2]->position);
     }
+
+
+    public function testStoryFromData()
+    {
+        $params = [
+            'project_id' => 1,
+            'name'       => 'Some story name',
+            'description'=> 'Story description'
+        ];
+
+        $story = new \PivotalTrackerV5\Models\Story($params);
+
+        $this->assertEquals(1, $story->project_id);
+        $this->assertEquals('Some story name', $story->name);
+        $this->assertEquals('Story description', $story->description);
+
+        $story->set('nonexistent_property', true);
+        $this->assertEquals(null, $story->nonexistent_property);
+    }
 }

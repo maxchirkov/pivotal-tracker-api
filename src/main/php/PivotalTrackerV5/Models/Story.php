@@ -62,12 +62,6 @@ class Story extends Model
     protected $external_id;
 
 
-    function __construct()
-    {
-
-    }
-
-
     /**
      * @param mixed $projectId
      */

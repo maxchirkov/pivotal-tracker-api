@@ -28,10 +28,7 @@ class Comment extends Model
         {
             foreach ($parameters as $parameter => $value)
             {
-                if (property_exists($this, $parameter))
-                {
-                    $this->$parameter = $value;
-                }
+                $this->set($parameter, $value);
             }
         }
     }
