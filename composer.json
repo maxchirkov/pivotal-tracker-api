@@ -26,5 +26,8 @@
         "psr-0": {
             "PivotalTrackerV5": "src/main/php/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0"
     }
 }
