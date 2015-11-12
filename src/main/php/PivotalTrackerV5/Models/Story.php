@@ -111,7 +111,7 @@ class Story extends Model
      */
     public function setEstimate($estimate)
     {
-        $this->estimate = intval($estimate);
+        $this->estimate = $estimate;
     }
 
 
