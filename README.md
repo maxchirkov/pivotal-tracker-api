@@ -1,5 +1,7 @@
 pivotal-tracker-api
 ===================
+**Develop Branch**  
+[![Build Status](https://travis-ci.org/maxchirkov/pivotal-tracker-api.svg?branch=develop)](https://travis-ci.org/maxchirkov/pivotal-tracker-api)
 
 Library that provides a PHP interface to interact with the PivotalTracker API V5
 
