@@ -111,7 +111,7 @@ class Story extends Model
      */
     public function setEstimate($estimate)
     {
-        $this->estimate = $estimate;
+        $this->estimate = intval($estimate);
     }
 
 
@@ -138,6 +138,23 @@ class Story extends Model
      */
     public function setOwnerIds($owner_ids)
     {
+        // TODO: extract into a conversion method and apply to all properties that have strict
+        // type requirements.
+
+        if (is_string($owner_ids))
+        {
+            $ids = explode(',', $owner_ids);
+            $owner_ids = [];
+
+            foreach ($ids as $id)
+            {
+                if (is_numeric($id))
+                {
+                    $owner_ids[] = intval($id);
+                }
+            }
+        }
+
         $this->owner_ids = $owner_ids;
     }
 
