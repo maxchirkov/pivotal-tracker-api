@@ -208,7 +208,7 @@ class StoryTest extends PHPUnit_Framework_TestCase
         $story = new \PivotalTrackerV5\Models\Story($params);
 
         $dto = $story->toDto();
-//var_dump($dto);
+
         $this->validator->check($dto, $this->schema);
 
         foreach ($params as $k => $v)
@@ -260,10 +260,12 @@ class StoryTest extends PHPUnit_Framework_TestCase
                     'name'       => 'Some story name',
                     'description'=> 'Story description',
                     'estimate'  => '4',
-                    'labels'    => ['test1', 'test2', 'test3']
+                    'labels'    => ['test1', 'test2', 'test3'],
+                    'tasks'     => ['Task 1', 'Task 2', 'Task 3'],
                 ],
                 true
-            ]
+            ],
+
         ];
     }
 }
