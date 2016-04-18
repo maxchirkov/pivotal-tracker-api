@@ -30,9 +30,10 @@ class Client implements RestClientInterface
     /**
      * Wrapped HTTP request methods.
      */
-    const GET  = 'GET',
-          POST = 'POST',
-          PUT  = 'PUT';
+    const GET       = 'GET',
+          POST      = 'POST',
+          PUT       = 'PUT',
+          DELETE    = 'DELETE';
 
     /**
      * Optional default headers for each request.
@@ -128,6 +129,20 @@ class Client implements RestClientInterface
     public function put( $path, $body = null )
     {
         return $this->request( self::PUT, $path, $body );
+    }
+
+    /**
+     * Execute a HTTP DELETE request to the remote server
+     *
+     * Returns the raw response from the remote server.
+     *
+     * @param string $path
+     * @param mixed $body
+     * @return mixed
+     */
+    public function delete( $path, $body = null )
+    {
+        return $this->request( self::DELETE, $path, $body );
     }
 
     /**

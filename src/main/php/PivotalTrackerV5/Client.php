@@ -76,6 +76,7 @@ class Client
         );
     }
 
+
     /**
      * Adds a new task with <b>$description</b> to the story identified by the
      * given <b>$storyId</b>.
@@ -136,6 +137,16 @@ class Client
             )
         );
 
+    }
+
+
+    public function deleteLabel( $storyId, $labelId)
+    {
+        return json_decode(
+            $this->client->delete(
+                "/projects/{$this->project}/stories/$storyId/labels/$labelId"
+            )
+        );
     }
 
 
