@@ -108,9 +108,12 @@ class Client
         );
     }
 
+
     /**
      * Adds the given <b>$labels</b> to the story identified by <b>$story</b>
      * and returns the updated story instance.
+     *
+     * Note: this will override existing labels with the given collection
      *
      * @param integer $storyId
      * @param array $labels
@@ -125,6 +128,20 @@ class Client
             )
         );
 
+    }
+
+
+    /**
+     * Substitutes story labels with the provided ones.
+     *
+     * @param       $storyId
+     * @param array $labels
+     *
+     * @return object
+     */
+    public function updateLabels( $storyId, array $labels )
+    {
+        return $this->addLabels($storyId, $labels);
     }
 
 
