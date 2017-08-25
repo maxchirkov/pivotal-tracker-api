@@ -171,6 +171,43 @@ class StoryTest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testStoryOwnerIdsViaSetter()
+    {
+        $story = new \PivotalTrackerV5\Models\Story();
+        $story->setProjectId(1);
+        $story->setName('Test Story');
+        $story->setOwnerIds([1,2,3]);
+
+        $data = $story->toArray();
+        $this->assertEquals([1,2,3], $data['owner_ids']);
+    }
+
+
+    /**
+     * @group failing
+     */
+    public function testStoryOwnerIdsViaConstructor()
+    {
+        $data = [
+            'name'      => 'Test Story',
+            'owner_ids' => [92,93,94]
+        ];
+        $story = new \PivotalTrackerV5\Models\Story($data);
+
+        $data = $story->toArray();
+        $this->assertEquals([92,93,94], $data['owner_ids']);
+
+        $data = [
+            'name'      => 'Test Story',
+            'owner_ids' => 95
+        ];
+        $story = new \PivotalTrackerV5\Models\Story($data);
+
+        $data = $story->toArray();
+        $this->assertEquals([95], $data['owner_ids']);
+    }
+
+
     public function schemaValidationProvider()
     {
         return [
@@ -179,7 +216,7 @@ class StoryTest extends PHPUnit_Framework_TestCase
                     'project_id' => 1,
                     'name'       => 'Some story name',
                     'description'=> 'Story description',
-                    'estimate'  => 4,
+                    'estimate'   => 4,
                 ],
                 true
             ],

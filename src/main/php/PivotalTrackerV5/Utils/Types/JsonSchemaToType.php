@@ -50,7 +50,7 @@ class JsonSchemaToType
                             {
                                 $method = 'to' . ucfirst($type);
 
-                                if (is_callable(array('\PivotalTrackerV5\Utils\Type\StringType', $method)))
+                                if (is_callable([__NAMESPACE__ . '\StringType', $method]))
                                 {
                                     $result[] = StringType::$method($item);
                                 }
