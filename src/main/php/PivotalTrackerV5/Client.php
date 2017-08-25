@@ -78,6 +78,25 @@ class Client
 
 
     /**
+     * Updates a given story
+     *
+     * @param $storyId
+     * @param $parameters array story fields
+     *
+     * @return mixed
+     */
+    public function updateStory( $storyId, $parameters )
+    {
+        return json_decode(
+            $this->client->put(
+                "/projects/{$this->project}/stories/$storyId",
+                json_encode( $parameters )
+            )
+        );
+    }
+
+
+    /**
      * Adds a new task with <b>$description</b> to the story identified by the
      * given <b>$storyId</b>.
      *
